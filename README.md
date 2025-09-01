@@ -2,10 +2,10 @@
 MR-25 Mobile Robot
 
 Fichiers Raspberry Pico :
--> encoder.py
--> motor.py
--> robot.py
--> vl6180x.py
+encoder.py
+motor.py
+robot.py
+vl6180x.py
 
 Mécanique : 
 support_pi5.dxf 
