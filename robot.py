@@ -63,6 +63,9 @@ codeurLeft = encoder.Encoder(6,7)
 # I2C
 i2c = machine.I2C(0, scl=machine.Pin(13, Pin.PULL_UP), sda=machine.Pin(12, Pin.PULL_UP), freq=400000)
 
+i2c_ina219 = machine.I2C(1, scl=machine.Pin(27, Pin.PULL_UP), sda=machine.Pin(26, Pin.PULL_UP), freq=400000)
+
+
 # prox sensors
 xshut1 = Pin(9, Pin.OUT, Pin.PULL_UP)
 xshut2 = Pin(8, Pin.OUT, Pin.PULL_UP) 
@@ -138,6 +141,32 @@ def proxRead(sensor):
   try:
     proxSensor1 = vl6180x.Sensor(i2c, 0x29)
     return (proxSensor1.range())
+  except:
+    return (-1)
+
+def proxReadALS(sensor):
+  xshut1.value(0)
+  xshut2.value(0)
+  xshut3.value(0)
+  xshut4.value(0)
+  xshut5.value(0)
+  
+  sensor = int(sensor) # conversion en int
+  
+  if (sensor == 1):
+    xshut1.value(1)
+  elif (sensor == 2):
+    xshut2.value(1)
+  elif (sensor == 3):
+    xshut3.value(1)
+  elif (sensor == 4):
+    xshut4.value(1)  
+  elif (sensor == 5):
+    xshut5.value(1)
+    
+  try:
+    proxSensor1 = vl6180x.Sensor(i2c, 0x29)
+    return (proxSensor1.get_als(1))
   except:
     return (-1) 
 
