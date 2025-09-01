@@ -6,6 +6,7 @@ MR-25 Mobile Robot
 - motor.py
 - robot.py
 - vl6180x.py
+- main.py
 
 
 ## Mécanique : 
