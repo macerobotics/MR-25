@@ -1,8 +1,8 @@
 # Robot MR-25
 # Auteur : Mace Robotics
-# Date dernière modification: 21/05/2025
+# Date dernière modification: 29/07/2025
 # Firmware du robot MR-25 (carte Raspberry Pi Pico)
-# Version : 0.1
+# Version : 0.32
 
 #lib
 import time, re
@@ -13,7 +13,7 @@ import gc
 
 
 # CONSTANTES
-VERSION_FIRMWARE = 0.1
+VERSION_FIRMWARE = 0.32
 
 
 # variables globales
@@ -25,13 +25,24 @@ data_send = 0
 # configuration du l'UART 
 uart0 = UART(0, baudrate=230400, tx=Pin(16), rx=Pin(17))
 
+# broche GP25 ou WL_GPI00 en sortie (led de la pico)
+led_int = Pin(25, Pin.OUT)  
 
-led_int = Pin(25, Pin.OUT)  # broche GP25 ou WL_GPI00 en sortie
-
-
-
+# led low batterie
+led_low_bat = Pin(22, Pin.OUT)  
+led_low_bat.value(0)
 
 print("Robot MR-25 Start")
+robot.buzzer(500, 65_536/2)
+time.sleep(0.5)
+robot.buzzerStop()
+
+
+
+# TEST
+print("Distance = ", robot.proxRead(1))
+print("Distance = ", robot.proxReadALS(1))
+
 
 
 # reception UART
@@ -116,7 +127,7 @@ async def uart_receiver():
             data_send = robot.battery()
             print("send data")
 
-        if(cmd_recu == "PROX"):
+        if(cmd_recu == "PR"):
             send_data = 1
             data_send = robot.proxRead(parametre1_recu)
             print("send data")
@@ -145,13 +156,15 @@ async def uart_receiver():
             
         if(cmd_recu == "MOTL"):
             robot.motorLeft(int(parametre1_recu), int(parametre2_recu))
-            
+        
+        # controle led RGB
         if(cmd_recu == "RGB"):
             print("parametre1_recu :", parametre1_recu)
             chiffres =  [int(c) for c in str(parametre1_recu) if c in ['0', '1']]
             print("chiffres",chiffres)
-            robot.ledRgb(chiffres[0],chiffres[1],chiffres[2])           
-
+            robot.ledRgb(chiffres[0],chiffres[1],chiffres[2])
+            
+        # lecture encodeur left
         if(cmd_recu == "EDL"):
             send_data = 1
             data_send = robot.encoderLeft()
@@ -160,6 +173,26 @@ async def uart_receiver():
         if(cmd_recu == "EDR"):
             send_data = 1
             data_send = robot.encoderRight()
+            
+        # Encodeur reset
+        if(cmd_recu == "ERZ"):
+            data_send = robot.encoderReset()
+            
+        # controle buzzer
+        if(cmd_recu == "BUZ"):
+            robot.buzzer(int(parametre1_recu), 65536/2)
+            
+        # stop buzzer
+        if(cmd_recu == "BUZS"):
+            robot.buzzerStop()
+            
+        # contole de la led low batt
+        if(cmd_recu == "LEDB"):
+            if (int(parametre1_recu) == 1):
+              led_low_bat.value(1)
+            else:
+              led_low_bat.value(0)
+            
         print("fin reception")
             
 async def main():
@@ -169,5 +202,7 @@ async def main():
 asyncio.run(main())
 
 
-# End file
+# End of file
+
+
 
