@@ -9,6 +9,9 @@ MR-25 Mobile Robot
 - main.py
 
 
+## Fichiers Raspberry Pi :
+- MR25.py
+  
 ## Mécanique : 
 - support_pi5.dxf 
 
