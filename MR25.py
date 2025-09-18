@@ -418,7 +418,6 @@ def writeCommand(command):
 # read data
 def readData():
   chaine = port.readline()
-  #print("chaine = ", chaine)
   pos1 = chaine.find(b'$')
   pos2 = chaine.find(b'\n')
   chaine = chaine[pos1+1:pos2]
