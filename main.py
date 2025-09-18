@@ -1,8 +1,8 @@
 # Robot MR-25
 # Auteur : Mace Robotics
-# Date dernière modification: 29/07/2025
+# Date dernière modification: 18/09/2025
 # Firmware du robot MR-25 (carte Raspberry Pi Pico)
-# Version : 0.32
+# Version : 0.4
 
 #lib
 import time, re
@@ -21,6 +21,7 @@ _data_simple = 0 # si reception d'une commande simple sans paramètre (exemple :
 deux_para = 0 # si reception d'une commande avec 2 paramètres
 send_data = 0
 data_send = 0
+cmd_recu = 0
 
 # configuration du l'UART 
 uart0 = UART(0, baudrate=230400, tx=Pin(16), rx=Pin(17))
