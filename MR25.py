@@ -4,8 +4,8 @@
 #  Python API
 #  This library is used for the MR-25 robot.
 #  http://www.macerobotics.com
-#  Date : 19/08/2025
-#  Version : 0.7
+#  Date : 23/08/2025
+#  Version : 0.72
 # 
 #  Modif : suppression controleEnable, gerer direct dans lib
 #  Fonctionnne avec Python 3
@@ -55,8 +55,8 @@ __all__ = ['orientation']
 
 
 
-# init serial port, baud rate = 230400
-port = serial.Serial('/dev/ttyAMA0', 230400,  bytesize=8, parity='N', stopbits=1)
+# init serial port, baud rate = 921600
+port = serial.Serial('/dev/ttyAMA0', 921600 ,  bytesize=8, parity='N', stopbits=1)
 time.sleep(0.5)
 
 ina219 = INA219.INA219(addr=0x41)
@@ -155,6 +155,31 @@ def forward(speed):
     port.write(b'!\n')
   else:
     print("error speed value")
+
+# the robot move forward
+def forwardmm(distance):
+  """
+        
+        Exemple:
+        >> forwardmm(20)
+  """
+  if distance > -1001 and distance < 1001:
+    distance = str(distance)
+    port.write(b"#FM,")
+    distance = bytes(distance, 'utf-8')
+    port.write(distance)
+    port.write(b'!\n')
+  else:
+    print("error distance value")
+
+# the robot turn with angle (degré)
+def turnAngle(angle):
+  angle = str(angle)
+  port.write(b"#TA,")
+  angle = bytes(angle, 'utf-8')
+  port.write(angle)
+  port.write(b'!\n')
+
 
 # the robot move back
 def back(speed):
