@@ -1,0 +1,31 @@
+#!/usr/bin/python
+import MR25
+import time, sys
+
+while True:
+  tension = MR25.battery()
+  print("Lecture tension batterie : ", tension)
+  courant = MR25.batteryCurrent()
+  print("Lecture courant batterie : ", courant)
+  er = MR25.encoderRight()
+  print("Encodeur droit : ", er)
+  er = MR25.encoderLeft()
+  print("Encodeur gauche : ", er)
+  MR25.ledRGB("101")
+  print("Avancer robot")
+  MR25.forward(25)
+  time.sleep(2)
+  print("Reculer robot")
+  MR25.back(25)
+  time.sleep(2)
+  print("TR robot")
+  MR25.turnRight(25)
+  time.sleep(2)
+  print("TL robot")
+  MR25.turnLeft(25)
+  time.sleep(2)
+  print("Stop robot")
+  MR25.stop()
+  time.sleep(1)
+  p2 = MR25.proxSensorAll()
+  print("All Capteur distance : ", p2)
