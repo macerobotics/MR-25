@@ -4,8 +4,8 @@
 #  Python API
 #  This library is used for the MR-25 robot.
 #  http://www.macerobotics.com
-#  Date : 23/08/2025
-#  Version : 0.72
+#  Date : 06/10/2025
+#  Version : 0.73
 # 
 #  Modif : suppression controleEnable, gerer direct dans lib
 #  Fonctionnne avec Python 3
@@ -44,7 +44,6 @@ __all__ = ['encoderReset']# OK
 __all__ = ['writeCommand']
 __all__ = ['readData']
 __all__ = ['buzzer']
-__all__ = ['buzzerStart']
 __all__ = ['buzzerStop']
 __all__ = ['ledRGB'] # OK
 __all__ = ['ledLowBatt'] # OK
@@ -281,30 +280,21 @@ def motorLeft(direction, speed):
   port.write(pwm)
   port.write(b'!\n')
   
-
-  
-########################################
-# robot go (X and Y Coordinate),
-# speed : speed of the robot (0 to 100)
-# cordX : Coordinate axe X (millimeter)
-# cordY : Coordinate axe Y (millimeter)
-
-  
-
-  
-
 #---------------------------------------------------------------------
 #-------------[ MR-25 buzzer methods]-------------------------
 
 # buzzer control
-def buzzer(frequency):
+def buzzer(frequency, temps):
   """
         buzzer control
   """
   if frequency > 0 and frequency < 20001:
     freq = bytes(str(frequency), 'utf-8')
+    temps = bytes(str(temps), 'utf-8')
     port.write(b'#BUZ,')
     port.write(freq)
+    port.write(b',')
+    port.write(temps)
     port.write(b'!\n')
   else:
     print("Error frequency value")
@@ -380,7 +370,6 @@ def orientation():
         >> orientation()
   """
   stepOrientation = encoderRight() - encoderLeft()
-  print("stepOrientation:", stepOrientation)
   angle = (stepOrientation * 90)/(1000)
   return(angle)
 
