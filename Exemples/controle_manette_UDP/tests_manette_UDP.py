@@ -1,3 +1,15 @@
+######################################################
+#  
+#  http://www.macerobotics.com
+#  Date : 02/02/2026
+#  Version : 0.1
+# 
+#
+#  MIT Licence
+
+######################################################
+
+
 import pygame  # Importation de la bibliothèque Pygame pour gérer une manette
 from time import sleep  
 import sys  
