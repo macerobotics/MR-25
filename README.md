@@ -2,7 +2,7 @@
 MR-25 Mobile Robot
 MR-25 est un robot mobile basé sur une carte Raspberry Pi.
 
-## Fichiers Raspberry Pico :
+## Fichiers Raspberry Pico (version microPython) :
 - encoder.py : gestion des encodeurs du robot
 - motor.py : gestion du pont en H pour le controle des moteurs
 - robot.py : librairie Pico des fonctions pour le controle du robot MR25
