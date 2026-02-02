@@ -1,3 +1,15 @@
+######################################################
+#  Python API
+#  This library is used for the MR-25 robot.
+#  http://www.macerobotics.com
+#  Date : 06/10/2025
+#  Version : 0.1
+# 
+#
+#  MIT Licence
+
+######################################################
+
 #!/usr/bin/python
 import MR25
 import time, sys
