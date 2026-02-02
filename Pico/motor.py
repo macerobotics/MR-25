@@ -1,14 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
-# Date : 19/09/2022
-# Version : 0.1
-# Auteur : Mace Robotics
+
+######################################################
+#  
+#  http://www.macerobotics.com
+#  Date : 02/02/2026
+#  Version : 0.41
 # 
-# Lib motor for MR-Pico 
 #
-#
-# MOTOR1 : GP11, GP10
+#  MIT Licence
+
+######################################################
+
 
 
 
