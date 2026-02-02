@@ -1,8 +1,14 @@
-# Author : Mace Robotics (www.macerobotics.com)
-# Firmware du Robot MR-25
-# Version : 0.46
-# Date : 20/05/25
-# MIT Licence
+######################################################
+#  
+#  http://www.macerobotics.com
+#  Date : 02/02/2026
+#  Version : 0.41
+# 
+#
+#  MIT Licence
+
+######################################################
+
 
 
 from machine import Pin, Timer, PWM
