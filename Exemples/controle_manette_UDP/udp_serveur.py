@@ -1,3 +1,15 @@
+######################################################
+#  
+#  http://www.macerobotics.com
+#  Date : 02/02/2026
+#  Version : 0.1
+# 
+#
+#  MIT Licence
+
+######################################################
+
+
 import socket
 import MR25
 import time
