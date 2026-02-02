@@ -1,12 +1,16 @@
+######################################################
+#  
+#  http://www.macerobotics.com
+#  Date : 06/10/2025
+#  Version : 0.1
+# 
+#
+#  MIT Licence
+
+######################################################
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#
-# Date : 03/02/2023
-# Version : 0.2
-# Auteur : Mace Robotics
-# 
-# 
-#
 
 from machine import Pin
 
