@@ -1,8 +1,13 @@
-# Robot MR-25
-# Auteur : Mace Robotics
-# Date dernière modification: 23/09/2025
-# Firmware du robot MR-25 (carte Raspberry Pi Pico)
-# Version : 0.42
+######################################################
+#  
+#  http://www.macerobotics.com
+#  Date : 02/02/2026
+#  Version : 0.41
+# 
+#
+#  MIT Licence
+
+######################################################
 
 #lib
 import time, re
