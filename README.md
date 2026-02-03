@@ -16,5 +16,8 @@ MR-25 est un robot mobile basé sur une carte Raspberry Pi.
 ## Mécanique : 
 - support_pi5.dxf : support plexiglas du robot.
 
+## Electronique : 
+- Fichiers gerbers et schèma de la carte électronique 
+
 Open Source Robot
 MIT Licence
