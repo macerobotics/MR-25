@@ -1,4 +1,4 @@
-
+// copyleft 
 
 
 #include <Arduino.h>
@@ -6,6 +6,8 @@
 #include "proxSensors.h"
 #include <VL6180X.h>
 #include "pio_encoder.h"
+#include "controlRobot.h"
+#include "positionControl.h"
 
 PioEncoder encoder1(0); 
 PioEncoder encoder2(6); 
@@ -45,24 +47,76 @@ void init_robot(void)
 
 void forwardRobot(int val)
 {
-  motorRight(val, 1);
-  motorLeft(val, 1);
+  motorRight(1,val);
+  motorLeft(1,val);
 }
 
+
+int period = 10000;
+unsigned long time_now = 0;
+
+
+// distance en millimètres
 void forwardmm(int distance) 
 {
+float distTicks;
+
+  // reset des encodeurs
+  encoderReset();
+
+  // conversion des millimètres en ticks
+  distTicks = (distance*ENCODER_RESOLUTION)/100.48; // 100.48 mm= 1 tour de roue (roue de 32 mm)
+  
+  controlRobot_enable(true);
+
+  controlRobot_WriteCommandeDistance(distTicks);
+  controlRobot_WriteCommandeOrientation(0);
+  
   Serial.println("Forward mm: " + String(distance));
+
+  time_now = millis();
+
+  do{
+    // attendre la fin de la consigne
+  }while(controlRobot_state() != true);
+
+  controlRobot_enable(false);
+
 }
 
+// angle en degrés
 void turnAngle(int angle)
 {
-  Serial.println("Turn angle: " + String(angle));
+float angleTicks;
+
+  // reset des encodeurs
+  encoderReset();
+
+  // conversion des degre en ticks
+  angleTicks = (angle*ENCODER_RESOLUTION*2)/90; // 100.48 mm= 1 tour de roue (roue de 32 mm)
+
+
+  
+  controlRobot_enable(true);
+
+  controlRobot_WriteCommandeDistance(0);
+  controlRobot_WriteCommandeOrientation(angleTicks);
+  
+  Serial.println("turnAngle mm: " + String(angle));
+
+  time_now = millis();
+
+  do{
+    // attendre la fin de la consigne
+  }while(controlRobot_state() != true);
+
+  controlRobot_enable(false);
 }
 
 void backRobot(int val) 
 {
-  motorRight(val, 0);
-  motorLeft(val, 0);
+  motorRight(0,val);
+  motorLeft(0,val);
 }
 
 void stopRobot()
@@ -76,14 +130,14 @@ void stopRobot()
 
 void turnRight(int vitesse)
 {
-  motorRight(vitesse, 0);
-  motorLeft(vitesse, 1);
+  motorRight(0,vitesse);
+  motorLeft(1,vitesse);
 }
 
 void turnLeft(int vitesse)
 {
-  motorRight(vitesse, 1);
-  motorLeft(vitesse, 0);
+  motorRight(1,vitesse);
+  motorLeft(0,vitesse);
 }
 
 void motorRight(int dir, int pwm) 
@@ -134,7 +188,7 @@ void ledRgb(bool r, bool g, bool b)
 
 int encoderLeft(void)
 {
-  return(encoder2.getCount());
+  return(-encoder2.getCount());
 }
 
 int encoderRight(void)
@@ -153,8 +207,8 @@ float orientationRobot(void)
 int stepOrientation, angleDegree;
 
   stepOrientation = encoderRight() - encoderLeft();
-  
-  angleDegree = (stepOrientation * 90)/(696);
+
+  angleDegree = (stepOrientation * 90)/(ENCODER_RESOLUTION*2);
   return(angleDegree);
 }
 
