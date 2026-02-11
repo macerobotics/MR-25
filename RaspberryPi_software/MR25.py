@@ -4,13 +4,13 @@
 #  Python API
 #  This library is used for the MR-25 robot.
 #  http://www.macerobotics.com
-#  Date : 06/10/2025
-#  Version : 0.73
+#  Date : 09/10/2026
+#  Version : 0.76
 # 
 #  Modif : suppression controleEnable, gerer direct dans lib
 #  Fonctionnne avec Python 3
 #
-#  MIT Licence
+#  CopyLeft
 
 ######################################################
 from math import*
@@ -38,6 +38,8 @@ __all__ = ['turnRight']# OK
 __all__ = ['turnLeft']# OK
 __all__ = ['motorRight']# OK
 __all__ = ['motorLeft']# OK
+__all__ = ['speedMotorRight']# OK
+__all__ = ['speedMotorLeft']# OK
 __all__ = ['encoderLeft']# OK
 __all__ = ['encoderRight']# OK
 __all__ = ['encoderReset']# OK
@@ -51,11 +53,15 @@ __all__ = ['orientation']
 ###############################################################
 ###############################################################
 
+# constante pour led RGB
+_RED = "100"
+_GREEN = "010"
+_BLUE = "001"
 
 
 
-# init serial port, baud rate = 921600
-port = serial.Serial('/dev/ttyAMA0', 921600 ,  bytesize=8, parity='N', stopbits=1)
+# init serial port, baud rate = 230400
+port = serial.Serial('/dev/ttyAMA0', 230400 ,  bytesize=8, parity='N', stopbits=1)
 time.sleep(0.5)
 
 ina219 = INA219.INA219(addr=0x41)
@@ -146,6 +152,8 @@ def forward(speed):
         Exemple:
         >> forward(20)
   """
+  print("Forward MR25")
+  print(speed)
   if speed > -1 and speed < 101:
     speed = str(speed)
     port.write(b"#MF,")
@@ -173,7 +181,7 @@ def forwardmm(distance):
 
 # the robot turn with angle (degré)
 def turnAngle(angle):
-  angle = str(angle)
+  angle = str(angle) 
   port.write(b"#TA,")
   angle = bytes(angle, 'utf-8')
   port.write(angle)
@@ -352,6 +360,32 @@ def encoderRight():
   value = readData()
   return int(value)
   
+def speedMotorRight():
+  """
+        read the speed of the motor right  
+        Exemple:
+        >> speedMotorRight()
+  """
+  liste = []
+  value = 0
+  port.flushInput() # reset serial receive buffer
+  port.write(b'#SWR!\n')
+  value = readData()
+  return int(value)
+  
+def speedMotorLeft():
+  """
+        read the speed of the motor left  
+        Exemple:
+        >> speedMotorLeft()
+  """
+  liste = []
+  value = 0
+  port.flushInput() # reset serial receive buffer
+  port.write(b'#SWL!\n')
+  value = readData()
+  return int(value)
+  
 # the encoderReset
 def encoderReset():
   """
@@ -370,9 +404,37 @@ def orientation():
         >> orientation()
   """
   stepOrientation = encoderRight() - encoderLeft()
-  angle = (stepOrientation * 90)/(1000)
+  stepOrientation = stepOrientation*(0.00024) # roue de 32 mm (4200 ticks pour 1 tour)
+  angle = stepOrientation * (57.29577)
   return(angle)
 
+# the robot position X
+def positionX():
+  """
+        read the position  
+        Exemple:
+        >> positionX()
+  """
+  liste = []
+  value = 0
+  port.flushInput() # reset serial receive buffer
+  port.write(b'#POX!\n')
+  value = readData()
+  return int(value)
+
+# the robot position Y
+def positionY():
+  """
+        read the position  
+        Exemple:
+        >> positionX()
+  """
+  liste = []
+  value = 0
+  port.flushInput() # reset serial receive buffer
+  port.write(b'#POY!\n')
+  value = readData()
+  return int(value)
   
 #---------------------------------------------------------------------
 #-------------[ MR-25 serial2 methods]----------------------------
