@@ -1,4 +1,4 @@
-
+// copyleft 
 
 #include <Wire.h>
 #include <Arduino.h>
@@ -55,7 +55,7 @@ void init_proxSensors()
   sensor1.init();
   sensor1.configureDefault();
   sensor1.setAddress(address0);
-  Serial.println(sensor1.readReg(0x212),HEX); // read I2C address
+  //Serial.println(sensor1.readReg(0x212),HEX); // read I2C address
   sensor1.writeReg(VL6180X::SYSRANGE__MAX_CONVERGENCE_TIME, 30);
   sensor1.writeReg16Bit(VL6180X::SYSALS__INTEGRATION_PERIOD, 50);
   sensor1.setTimeout(500);
@@ -72,7 +72,7 @@ void init_proxSensors()
   sensor2.init();
   sensor2.configureDefault();
   sensor2.setAddress(address1);
-  Serial.println(sensor2.readReg(0x212),HEX);
+  //Serial.println(sensor2.readReg(0x212),HEX);
   sensor2.writeReg(VL6180X::SYSRANGE__MAX_CONVERGENCE_TIME, 30);
   sensor2.writeReg16Bit(VL6180X::SYSALS__INTEGRATION_PERIOD, 50);
   sensor2.setTimeout(500);
@@ -89,7 +89,7 @@ void init_proxSensors()
   sensor3.init();
   sensor3.configureDefault();
   sensor3.setAddress(address2);
-  Serial.println(sensor3.readReg(0x212),HEX);
+  //Serial.println(sensor3.readReg(0x212),HEX);
   sensor3.writeReg(VL6180X::SYSRANGE__MAX_CONVERGENCE_TIME, 30);
   sensor3.writeReg16Bit(VL6180X::SYSALS__INTEGRATION_PERIOD, 50);
   sensor3.setTimeout(500);
@@ -106,7 +106,7 @@ void init_proxSensors()
   sensor4.init();
   sensor4.configureDefault();
   sensor4.setAddress(address3);
-  Serial.println(sensor4.readReg(0x212),HEX);
+  //Serial.println(sensor4.readReg(0x212),HEX);
   sensor4.writeReg(VL6180X::SYSRANGE__MAX_CONVERGENCE_TIME, 30);
   sensor4.writeReg16Bit(VL6180X::SYSALS__INTEGRATION_PERIOD, 50);
   sensor4.setTimeout(500);
@@ -123,7 +123,7 @@ void init_proxSensors()
   sensor5.init();
   sensor5.configureDefault();
   sensor5.setAddress(address4);
-  Serial.println(sensor5.readReg(0x212),HEX);
+  //Serial.println(sensor5.readReg(0x212),HEX);
   sensor5.writeReg(VL6180X::SYSRANGE__MAX_CONVERGENCE_TIME, 30);
   sensor5.writeReg16Bit(VL6180X::SYSALS__INTEGRATION_PERIOD, 50);
   sensor5.setTimeout(500);
@@ -140,7 +140,7 @@ int readProx(int capteur)
 int distance;
 
   if(capteur == 1)
-    distance = sensor1.readRangeContinuousMillimeters();
+    distance = sensor1.readRangeContinuousMillimeters();   
   else if(capteur == 2)
     distance = sensor2.readRangeContinuousMillimeters();    
   else if(capteur == 3)
