@@ -1,3 +1,5 @@
+// copyleft 
+
 #ifndef ROBOT_h
 #define ROBOT_h
 
@@ -5,9 +7,10 @@
 
 void init_robot();
 void forwardRobot(int val);
-void forwardmm(int distance);
-void turnAngle(int angle);
+
 void backRobot(int val);
+
+
 void stopRobot();
 void turnRight(int vitesse);
 void turnLeft(int vitesse);
@@ -20,7 +23,8 @@ int encoderLeft(void);
 int encoderRight(void);
 void encoderReset(void);
 
-
+void forwardmm(int distance);
+void turnAngle(int angle);
 
 #endif
 // End of file
