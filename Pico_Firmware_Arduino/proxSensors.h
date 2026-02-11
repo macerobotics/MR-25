@@ -1,3 +1,5 @@
+// copyleft 
+
 #ifndef PROX_h
 #define PROX_h
 
