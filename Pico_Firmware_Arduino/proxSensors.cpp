@@ -1,4 +1,4 @@
-// copyleft 
+
 
 #include <Wire.h>
 #include <Arduino.h>
@@ -62,7 +62,7 @@ void init_proxSensors()
   sensor1.stopContinuous();
   sensor1.setScaling(RANGE); // configure range or precision 1, 2 oder 3 mm
   delay(300);
-  sensor1.startInterleavedContinuous(100);
+  sensor1.startInterleavedContinuous(75);
   delay(100);
 
   // Sensor2
@@ -79,7 +79,7 @@ void init_proxSensors()
   sensor2.stopContinuous();
   sensor2.setScaling(RANGE);
   delay(300);
-  sensor2.startInterleavedContinuous(100);
+  sensor2.startInterleavedContinuous(75);
   delay(100);
 
   // Sensor3
@@ -96,7 +96,7 @@ void init_proxSensors()
   sensor3.stopContinuous();
   sensor3.setScaling(RANGE);
   delay(300);
-  sensor3.startInterleavedContinuous(100);
+  sensor3.startInterleavedContinuous(75);
   delay(100);
 
   // Sensor4
@@ -113,7 +113,7 @@ void init_proxSensors()
   sensor4.stopContinuous();
   sensor4.setScaling(RANGE);
   delay(300);
-  sensor4.startInterleavedContinuous(100);
+  sensor4.startInterleavedContinuous(75);
   delay(100);
 
   // Sensor5
@@ -130,7 +130,7 @@ void init_proxSensors()
   sensor5.stopContinuous();
   sensor5.setScaling(RANGE);
   delay(300);
-  sensor5.startInterleavedContinuous(100);
+  sensor5.startInterleavedContinuous(75);
   delay(100);
   
 }
