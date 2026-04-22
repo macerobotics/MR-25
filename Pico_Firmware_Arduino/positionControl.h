@@ -1,5 +1,3 @@
-// copyleft 
-
 #ifndef POSITION_CONTROL_h
 #define POSITION_CONTROL_h
 
