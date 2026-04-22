@@ -1,5 +1,3 @@
-// copyleft 
-
 #ifndef ROBOT_h
 #define ROBOT_h
 
@@ -25,6 +23,9 @@ void encoderReset(void);
 
 void forwardmm(int distance);
 void turnAngle(int angle);
+
+void calibration_motorRight(int motorCalibR);
+void calibration_motorLeft(int motorCalibL);
 
 #endif
 // End of file
